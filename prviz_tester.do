@@ -16,9 +16,11 @@ gen xvar = round(runiform(1,100))
 // Creates positively correlated relationship.
 gen yvar = round((xvar / 100) + rnormal(0,.1))
 // Test the visulization
-prviz yvar xvar, title(User written prviz test output) ///
-subtitle(First test) ///
-name(prviz_test_1)
+prviz yvar xvar, title(prviz example output) ///
+name(prvizer, replace) ///
+note("More information: github.com/adamrossnelson/prviz") ///
+xtitle("Value along the x axis - conceptually an independant variable") ///
+ytitle("Proportion of y variable that is true," "conceptually dependant variable")
 
 
 
