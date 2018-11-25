@@ -1,0 +1,9 @@
+d prviz: Stata package that visualizes proportion over an x axis.
+d
+d Distribution-Date: November 2018
+d
+d Author:  Adam Ross Nelson
+d Support: https://github.com/adamrossnelson/prviz
+d
+f prviz.ado
+f prviz.sthlp
