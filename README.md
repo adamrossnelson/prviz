@@ -5,7 +5,7 @@ Stata user written package that visualizes proportion over an x axis.
 ## Installation
 
 ```
-net install conrpt, from(https://raw.githubusercontent.com/adamrossnelson/prviz/master)
+net install prviz, from(https://raw.githubusercontent.com/adamrossnelson/prviz/master)
 ```
 
 ## Usage (Help File)
