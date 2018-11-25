@@ -30,7 +30,7 @@ program define prviz, rclass
 	local max = round(r(max))
 
 	// Determine the length of the matrix needed.
-	local matlength = `max' - `min'
+	local matlength = `max' - `min' + 1
 	
 	// Preserve data set before keeping/removing observations.
 	preserve
@@ -40,28 +40,30 @@ program define prviz, rclass
 	// di `matlength'
 	// di "matrix tograph = J(`matlength', 5,.)""
 	// Declare matrix that will store graph data.
-	// matrix tograph = J(`matlength', 5,.)
-	matrix tograph = J(round(r(max)), 5,.)
+	matrix tograph = J(`matlength', 5,.)
+	// matrix tograph = J(round(r(max)), 5,.)
 	// Name matrix columns.   
 	//    xvar_  = x axis values
 	//    pcty_  = percent true (y axis)   pctn_ = percent not true (y axis)
 	//    count_ = N of obs at x axis      top_  = Helper variable used in graph
 	matrix colnames tograph = xvar_ pcty_ pctn_ count_ top_
 	
+	// Use local to iterate through row when first x axis value is not 1.
+	local matrow = 1
 	// Loop through x axis values. Calculate graph data and populate matrix.
 	forvalues i = `min'/`max' {
-		// Summarize y axis variable at each x axis value.
 		qui sum `1' if `2' == `i'
 		// Store x axis value.
-		matrix tograph[`i', 1] = `i'
+		matrix tograph[`matrow', 1] = `i'
 		// Store percent true (y axis)
-		matrix tograph[`i', 2] = r(mean) * 100
+		matrix tograph[`matrow', 2] = r(mean) * 100
 		// Store percent not true (y axis)
-		matrix tograph[`i', 3] = (1 - r(mean) * 100)
+		matrix tograph[`matrow', 3] = (1 - r(mean) * 100)
 		// Store number of observations available at each x axis value.
-		matrix tograph[`i', 4] = r(N)
+		matrix tograph[`matrow', 4] = r(N)
 		// Store helper variable used in graph.
-		matrix tograph[`i', 5] = 100
+		matrix tograph[`matrow', 5] = 100
+		local matrow = `matrow' + 1
 	}
 	
 	// TODO: Add an option/argument that can suppress this output.
