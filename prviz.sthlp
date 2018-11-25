@@ -58,7 +58,7 @@ Example visualizations available:
 {phang}{cmd:. gen xvar = round(runiform(1,100))}{p_end}
 {phang}{cmd:. gen yvar = round((xvar / 100) + rnormal(0,.1))}{p_end}
 {phang}{cmd:. prviz yvar xvar, title(User written prviz test output) ///}{p_end}
-{phang}{cmd:. subtitle(First test) name(prviz_test_1)}{p_end}
+{phang}{cmd:. subtitle(Example visualizaiton) name(prviz_example)}{p_end}
 
 {marker author}
 {title:Author}
