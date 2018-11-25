@@ -1,5 +1,5 @@
 v 1.0.0.
-d conrpt: Stata package that provides confusion matrix statistics.
+d prviz: Stata package that visualizes proportion over an x axis.
 d version and support from
-d https://github.com/adamrossnelson/conrpt/
-p conrpt
+d https://github.com/adamrossnelson/prviz/
+p prviz
