@@ -29,46 +29,36 @@
 
 . prviz yvar xvar if xvar >= 45 xvar <= 55
 
-Referenced / Observed Variable : var1
+             |     xvar_      pcty_      pctn_     count_       top_ 
+-------------+-------------------------------------------------------
+         r45 |        45         33        -32       1010        100 
+         r46 |        46         33        -32       1016        100 
+         r47 |        47         37        -36        991        100 
+         r48 |        48         44        -43        986        100 
+         r49 |        49         47        -46       1027        100 
+         r50 |        50         49        -48       1021        100 
+         r51 |        51         55        -54        988        100 
+         r52 |        52         58        -57        974        100 
+         r53 |        53         63        -62       1073        100 
+         r54 |        54         66        -65       1002        100 
+         r55 |        55         68        -67       1052        100 
 
-             |      var2    p25coin    p50coin    p75coin 
--------------+--------------------------------------------
-   TestedPos |        60         26         50         72 
-   TestedNeg |        40         74         50         28 
-   TestedTot |       100        100        100        100 
-     TruePos |        47         11         22         33 
-     TrueNeg |        40         38         25         14 
-    FalsePos |        13         15         28         39 
-    FalseNeg |         0         36         25         14 
- Sensitivity |       100       23.4      46.81      70.21 
- Specificity |     75.47       71.7      47.17      26.42 
-  PosPredVal |     78.33      42.31         44      45.83 
-  NegPredVal |       100      51.35         50         50 
-  FalsePosRt |     24.53       28.3      52.83      73.58 
-  FalseNegRt |         0       76.6      53.19      29.79 
-   CorrectRt |        87         49         47         47 
- IncorrectRt |        13         51         53         53 
-     ROCArea |     .8774      .4755      .4699      .4831 
-     F1Score |     .8785      .3014      .4536      .5546 
- MattCorCoef |     .7689     -.0557     -.0601     -.0375 
+Example visualizations available:
+{browse "https://github.com/adamrossnelson/prviz/"}{p_end}
 
-   Notes: ObservedPos: 47, ObservedNeg: 53, & 
-   ObservedTot: 100, Prevalence: 47    
-  
 {marker example}
 {title:Example}
 
+{phang}{cmd:. set more off}{p_end}
 {phang}{cmd:. clear all}{p_end}
 {phang}{cmd:. set seed 1234}{p_end}
-{phang}{cmd:. set obs 1000}{p_end}
-{phang}{cmd:. gen reference_var = round(runiform(0,1))}{p_end}
-{phang}{cmd:. gen fst_predict = reference_var}{p_end}
-{phang}{cmd:. replace fst_predict = 1 if _n > 800}{p_end}
-{phang}{cmd:. gen scd_predict = reference_var}{p_end}
-{phang}{cmd:. replace scd_predict = 1 if _n > 800}{p_end}
-{phang}{cmd:. replace scd_predict = 0 if _n < 100}{p_end}
+{phang}{cmd:. discard}{p_end}
+{phang}{cmd:. set obs 100000}{p_end}
 
-{phang}{cmd:. conrpt reference_var fst_predict scd_predict, perfect}{p_end}
+{phang}{cmd:. gen xvar = round(runiform(1,100))}{p_end}
+{phang}{cmd:. gen yvar = round((xvar / 100) + rnormal(0,.1))}{p_end}
+{phang}{cmd:. prviz yvar xvar, title(User written prviz test output) ///}{p_end}
+{phang}{cmd:. subtitle(First test) name(prviz_test_1)}{p_end}
 
 {marker author}
 {title:Author}

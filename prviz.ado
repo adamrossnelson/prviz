@@ -36,9 +36,12 @@ program define prviz, rclass
 	preserve
 	capture keep `if' `in'
 	
-	di `matlength'
+	// TODO: Figure out why using local/scalar causes conformability error
+	// di `matlength'
+	// di "matrix tograph = J(`matlength', 5,.)""
 	// Declare matrix that will store graph data.
-	matrix tograph = J(round(`r(max)'), 5,.)
+	// matrix tograph = J(`matlength', 5,.)
+	matrix tograph = J(round(r(max)), 5,.)
 	// Name matrix columns.   
 	//    xvar_  = x axis values
 	//    pcty_  = percent true (y axis)   pctn_ = percent not true (y axis)
@@ -74,12 +77,17 @@ program define prviz, rclass
 	
 	// Calculate position for legend text inside chart area.
 	qui sum xvar_
+	// False note position on x axis is minimum x axis value 
+	// plus 1% of the x axis length.
+	local false_note = r(min) + (`matlength' * .01)
+	// True note position on x axis is the 99th% position
+	// along the x axis length.
 	local true_note = r(max) * .99
-	
+
 	twoway (area top_ xvar_, fcolor(dkgreen%80) lwidth(vvthin)) ///
 	       (area pcty_ xvar_, fcolor(white%40) lwidth(vvthin)), ///
-		   legend(off) ///
-		   text(95 1 "Dark area charts percent false", place(e)) ///
+		   legend(off) ylabel(0(10)100) ///
+		   text(95 `false_note' "Dark area charts percent false", place(e)) ///
 		   text(5 `true_note' "Faded area charts percent true", place(w)) ///
 		   `options'
 		   

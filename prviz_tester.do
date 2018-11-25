@@ -35,13 +35,3 @@ name(prviz_test_2)
 // Third test:
 // Test command with subset of data.
 prviz yvar xvar if xvar >= 45 & xvar <= 55
-
-
-local test = 10
-
-local another = 10 - 2
-
-sum xvar
-local again = r(max)
-
-matrix testmat = J(`again',5,.)
