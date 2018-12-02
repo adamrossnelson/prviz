@@ -1,4 +1,5 @@
 *! 1.0.0 Adam Ross Nelson November2018 // Original version
+*! 1.1.1 Adam Ross Nelson December2018 // Added bar option
 *! Author          : Adam Ross Nelson
 *! Description     : Stata package that visualizes proportion over an x axis.
 *! Maintained at   : https://github.com/adamrossnelson/prviz
@@ -23,6 +24,12 @@ program define prviz, rclass
 	
 	tokenize "`varlist'"
 	
+	local make_bar = 0
+	if strpos("`options'","bar") > 0 {
+		local make_bar = 1
+		local options = subinstr("`options'","bar","", .)
+	}
+	
 	// Determine a sensible min and max value for the x axis.
 	// Take the rounded value of the min and max x axis value.
 	qui sum `2' `if' `in'
@@ -36,12 +43,8 @@ program define prviz, rclass
 	preserve
 	capture keep `if' `in'
 	
-	// TODO: Figure out why using local/scalar causes conformability error
-	// di `matlength'
-	// di "matrix tograph = J(`matlength', 5,.)""
 	// Declare matrix that will store graph data.
 	matrix tograph = J(`matlength', 5,.)
-	// matrix tograph = J(round(r(max)), 5,.)
 	// Name matrix columns.   
 	//    xvar_  = x axis values
 	//    pcty_  = percent true (y axis)   pctn_ = percent not true (y axis)
@@ -86,13 +89,30 @@ program define prviz, rclass
 	// along the x axis length.
 	local true_note = r(max) * .99
 
-	twoway (area top_ xvar_, fcolor(dkgreen%80) lwidth(vvthin)) ///
-	       (area pcty_ xvar_, fcolor(white%40) lwidth(vvthin)), ///
-		   legend(off) ylabel(0(10)100) ///
-		   text(95 `false_note' "Dark area charts percent false", place(e)) ///
-		   text(5 `true_note' "Faded area charts percent true", place(w)) ///
-		   `options'
-		   
+	if `make_bar' {
+		qui tab xvar_
+		if r(r) > 20 {
+			di as result ""
+			di as result "WARNING. X axis contains 20 more than categories."
+			di as result "         This visuzlization optimized for 20 or fewer."
+		}
+		graph bar (mean) yvar (mean) yvar_inv, over(xvar) ///
+		stack legend(rows(1) position(6)) ///
+		`options'
+	}
+	else {
+		twoway (area top_ xvar_, fcolor(dkgreen%80) lwidth(vvthin)) ///
+			(area pcty_ xvar_, fcolor(white%40) lwidth(vvthin)), ///
+			legend(off) ylabel(0(10)100) ///
+			text(95 `false_note' "Dark area charts percent false", place(e)) ///
+			text(5 `true_note' "Faded area charts percent true", place(w)) ///
+			`options'
+	}
+	
+	gen yvar_inv = 1 - yvar
+
+	
+	   
 	restore
 	
 end
