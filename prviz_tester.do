@@ -21,7 +21,7 @@ subtitle(first test) ///
 name(prviz_test_1) ///
 note("More information: github.com/adamrossnelson/prviz") ///
 xtitle("Value along the x axis - conceptually an independant variable") ///
-ytitle("Proportion of y variable that is true," "conceptually dependant variable")
+ytitle("Proportion of y variable that is true," "conceptually a dependant variable")
 
 
 
@@ -34,7 +34,7 @@ subtitle(second test) ///
 name(prviz_test_2) ///
 note("More information: github.com/adamrossnelson/prviz") ///
 xtitle("Value along the x axis - conceptually an independant variable") ///
-ytitle("Proportion of y variable that is true," "conceptually dependant variable")
+ytitle("Proportion of y variable that is true," "conceptually a dependant variable")
 
 
 
@@ -46,5 +46,16 @@ subtitle(third test) ///
 name(prviz_test_3) ///
 note("More information: github.com/adamrossnelson/prviz") ///
 xtitle("Value along the x axis - conceptually an independant variable") ///
-ytitle("Proportion of y variable that is true," "conceptually dependant variable")
+ytitle("Proportion of y variable that is true," "conceptually a dependant variable")
+
+
+
+// Fourth test:
+// Test command with subset of data.
+prviz yvar xvar, bar title(prviz example output) ///
+subtitle(fourth_test) ///
+name(prviz_test_4) ///
+note("More information: github.com/adamrossnelson/prviz") ///
+xtitle("Value along the x axis - conceptually an independant variable") ///
+ytitle("Proportion of y variable that is true," "conceptually a dependant variable")
 
