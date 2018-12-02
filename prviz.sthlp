@@ -17,6 +17,9 @@
 {synopthdr}
 {synoptline}
 {syntab:Main}
+{synopt:{opt bar}}Will produce a visualization of stacked bars instead of the default stacked area.{p_end}
+
+{syntab:Partial list of options typically available from Stata graphing commands}
 {synopt:{opt title(string)}}Displays string as graph title.{p_end}
 {synopt:{opt ytitle(string)}}Displays string as y axis title.{p_end}
 {synopt:{opt name}}Names the graph for later reference.{p_end}
@@ -44,7 +47,7 @@
          r55 |        55         68        -67       1052        100 
 
 Example visualizations available:
-{browse "https://github.com/adamrossnelson/prviz/"}{p_end}
+{browse "https://github.com/adamrossnelson/prviz/"}
 
 {marker example}
 {title:Example}
