@@ -30,8 +30,8 @@ program define prviz, rclass
 	}
 
 	// Test to make sure y, outcome variable is binary.
-	capture assert yvar == 1 | yvar == 0
-	if _rc == 0 {
+	capture assert `1' == 1 | `1' == 0 `if' `in'
+	if _rc != 0 {
 		display as err "ERROR. Y, outcome variable is not binary."
 		error 450
 	}
