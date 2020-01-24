@@ -115,9 +115,7 @@ program define prviz, rclass
 			`options'
 	}
 	
-	gen yvar_inv = 1 - yvar
-
-	
+	// gen yvar_inv = 1 - yvar
 	   
 	restore
 	
