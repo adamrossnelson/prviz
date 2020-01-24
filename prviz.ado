@@ -9,7 +9,6 @@ program define prviz, rclass
 	version 15
 	syntax varlist(min=2 max=2) [if] [in] [, *]
 
-	// TODO: Test that y axis variable is a binary.
 	// TODO: Test that x axis variable is integer continous.
 	//       OR - convert x axis to integer continious.
 
@@ -28,6 +27,13 @@ program define prviz, rclass
 	if strpos("`options'","bar") > 0 {
 		local make_bar = 1
 		local options = subinstr("`options'","bar","", .)
+	}
+
+	// Test to make sure y, outcome variable is binary.
+	capture assert yvar == 1 | yvar == 0
+	if _rc != 0 {
+		display as err "ERROR. Y, outcome variable is not binary."
+		error 450
 	}
 	
 	// Determine a sensible min and max value for the x axis.
