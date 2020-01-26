@@ -7,7 +7,7 @@
 capture program drop prviz
 program define prviz, rclass
 	version 15
-	syntax varlist(min=2 max=2) [if] [in] [, *]
+	syntax varlist(min=2 max=2) [if] [in] [, * fcolor(string)]
 
 	// TODO: Test that x axis variable is integer continous.
 	//       OR - convert x axis to integer continious.
@@ -34,6 +34,11 @@ program define prviz, rclass
 	if _rc != 0 {
 		display as err "ERROR. Y, outcome variable is not binary."
 		error 450
+	}
+	
+	// Check if color had been specified. If not, set to default.
+	if "`fcolor'" == "" {
+		local fcolor = "dkgreen%80"
 	}
 	
 	// Determine a sensible min and max value for the x axis.
@@ -107,7 +112,7 @@ program define prviz, rclass
 		`options'
 	}
 	else {
-		twoway (area top_ xvar_, fcolor(dkgreen%80) lwidth(vvthin)) ///
+		twoway (area top_ xvar_, fcolor("`fcolor'") lwidth(vvthin)) ///
 			(area pcty_ xvar_, fcolor(white%40) lwidth(vvthin)), ///
 			legend(off) ylabel(0(10)100) ///
 			text(95 `false_note' "Dark area charts percent false", place(e)) ///

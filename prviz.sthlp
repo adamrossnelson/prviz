@@ -23,6 +23,7 @@
 {synopt:{opt title(string)}}Displays string as graph title.{p_end}
 {synopt:{opt ytitle(string)}}Displays string as y axis title.{p_end}
 {synopt:{opt name}}Names the graph for later reference.{p_end}
+{synopt:{opt fcolor(colorstyle)}}Choices for color. (see {helpb colorstyle}){p_end}
 
 {marker description}
 {title:Description}
